@@ -508,3 +508,33 @@ a:hover::after {
 .social-icon:hover .custom-icon {
     filter: invert(0%); /* Slightly brighter on hover */
 }
+
+/* Add this to your styles.css file */
+
+.events-list {
+    margin-top: 15px;
+}
+
+.event-item {
+    display: flex;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.event-date {
+    font-family: 'Space Mono', monospace;
+    min-width: 90px;
+    color: var(--accent-color);
+    font-size: 0.85rem;
+}
+
+.event-info {
+    font-size: 0.9rem;
+}
