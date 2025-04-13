@@ -568,6 +568,10 @@ a:hover::after {
     .bento-grid {
         height: auto;
     }
+
+    .avatar {
+        grid-area: avatar;
+      }
 }
 
 /* Mobile styles (no hover effects) */
@@ -588,7 +592,7 @@ a:hover::after {
     }
     
     body {
-        padding: 10px;
+        padding: 18px;
     }
     
     /* Always show CTA on mobile */
@@ -610,5 +614,37 @@ a:hover::after {
     .bento-item-link .card-content h2,
     .bento-item-link .card-content p {
         opacity: 1 !important;
+    }
+}
+
+/* Add these styles to your CSS file */
+
+/* Force mobile and touch devices to show everything without hover effects */
+@media (max-width: 600px), (hover: none) {
+    /* Keep titles and descriptions visible */
+    .bento-item:hover .bento-item-link .card-content h2,
+    .bento-item:hover .bento-item-link .card-content p {
+        opacity: 1 !important;
+    }
+    
+    /* Always show action link */
+    .action-link {
+        opacity: 1;
+        transform: none;
+        position: static;
+        margin-top: auto;
+        align-self: flex-start;
+        color: white;
+    }
+    
+    /* Disable transform effects */
+    .bento-item:hover {
+        transform: none;
+    }
+    
+    /* Keep background blurred */
+    .bento-item:hover .card-bg {
+        filter: blur(5px);
+        opacity: 0.25;
     }
 }
