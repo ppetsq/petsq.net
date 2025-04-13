@@ -1,0 +1,300 @@
+:root {
+    /* Core colors */
+    --bg-color: #111111;         /* Near-black background */
+    --text-color: #f2f2f2;       /* Very light gray text */
+    --accent-color: #00ffaa;     /* Bright mint/teal accent */
+    --secondary-color: #999999;  /* Medium gray for secondary elements */
+    
+    /* Card styles */
+    --card-bg: rgba(24, 24, 24, 0.8);        /* Slightly lighter black with transparency */
+    --card-hover: rgba(32, 32, 32, 0.9);     /* Highlighted card state */
+    
+    /* Layout values */
+    --gap: 12px;
+    --border-radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    padding: var(--gap);
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Bento grid layout */
+.bento-grid {
+    display: grid;
+    grid-template-areas: 
+        "avatar profile profile profile profile profile featured featured featured featured featured featured"
+        "avatar profile profile profile profile profile featured featured featured featured featured featured"
+        "offbeat offbeat offbeat releases releases releases featured featured featured featured featured featured"
+        "offbeat offbeat offbeat releases releases releases featured featured featured featured featured featured"
+        "offbeat offbeat offbeat releases releases releases upcoming upcoming upcoming upcoming upcoming upcoming"
+        "offbeat offbeat offbeat releases releases releases upcoming upcoming upcoming upcoming upcoming upcoming"
+        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social"
+        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social"
+        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: var(--gap);
+    flex: 1;
+    height: calc(100vh - 40px); /* Account for footer and padding */
+}
+
+.bento-item {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.bento-item:hover {
+    background-color: var(--card-hover);
+    transform: translateY(-5px);
+}
+
+.bento-item h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.bento-item p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.bento-item-link {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bento-item-link:hover {
+    color: var(--accent-color);
+}
+
+/* Define grid areas for each bento box */
+.avatar { grid-area: avatar; }
+.profile-info { grid-area: profile; }
+.focus-song { grid-area: featured; }
+.offbeat { grid-area: offbeat; }
+.releases { grid-area: releases; }
+.dj-sets { grid-area: djsets; }
+.remixes { grid-area: remixes; }
+.upcoming-shows { grid-area: upcoming; }
+.social-media { grid-area: social; }
+
+/* Avatar/logo */
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.avatar-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.logo {
+    font-family: 'Geostar Fill', cursive;
+    font-size: 1.5rem;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.genre-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+
+/* Social media icons */
+.social-icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 12px;
+    margin-top: auto;
+    flex-grow: 1;
+}
+
+.embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+/* Card hover effects */
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+}
+
+.bento-item:hover .card-bg {
+    opacity: 0.3;
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Link styling */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.action-link {
+    margin-top: auto;
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* Responsive layout */
+@media (max-width: 1200px) {
+    .bento-grid {
+        grid-template-areas: 
+            "avatar avatar profile profile profile profile"
+            "featured featured featured featured featured featured"
+            "featured featured featured featured featured featured"
+            "offbeat offbeat offbeat releases releases releases"
+            "offbeat offbeat offbeat releases releases releases"
+            "djsets djsets djsets remixes remixes remixes"
+            "djsets djsets djsets remixes remixes remixes"
+            "upcoming upcoming upcoming upcoming upcoming upcoming"
+            "social social social social social social";
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+    }
+    
+    html, body {
+        height: auto;
+        overflow-y: auto;
+    }
+    
+    .bento-grid {
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .bento-grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);
+    }
+    
+    .bento-item {
+        min-height: 180px;
+    }
+    
+    html, body {
+        height: auto;
+        overflow-y: auto;
+    }
+    
+    body {
+        padding: 10px;
+    }
+    
+    .footer {
+        margin-top: 10px;
+    }
+}
