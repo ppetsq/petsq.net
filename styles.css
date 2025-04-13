@@ -2,7 +2,7 @@
     /* Core colors */
     --bg-color: #111111;         /* Near-black background */
     --text-color: #f2f2f2;       /* Very light gray text */
-    --accent-color: #00ffaa;     /* Bright mint/teal accent */
+    --accent-color: #F1AB86 ;     /* Bright mint/teal accent */
     --secondary-color: #999999;  /* Medium gray for secondary elements */
     
     /* Card styles */
@@ -238,7 +238,7 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration:
 }
 
 .action-link {
