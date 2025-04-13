@@ -332,7 +332,6 @@ body::after {
 
 .social-icon:hover {
     background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-3px);
 }
 
 .embed-container {
