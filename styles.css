@@ -482,15 +482,53 @@ a:hover::after {
     transform-origin: left;
 }
 
-/* Action link */
+/* Action link - base styles */
 .action-link {
     opacity: 0;
     transition: all 0.3s ease;
-    transform: translateY(10px);
     margin-top: auto;
     font-weight: 500;
-    align-self: flex-start;
+    font-size: 1rem;
     display: inline-block;
+    color: var(--text-color);
+}
+
+/* Desktop hover effects */
+@media (min-width: 601px) {
+    .action-link {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+        font-size: 1.2rem;
+        color: white;
+        text-align: center;
+        text-transform: lowercase;
+        letter-spacing: 1px;
+    }
+    
+    .bento-item:hover .bento-item-link .action-link {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    
+    /* Show/hide content on hover */
+    .bento-item-link .card-content h2,
+    .bento-item-link .card-content p {
+        transition: opacity 0.3s ease;
+    }
+    
+    .bento-item:hover .bento-item-link .card-content h2,
+    .bento-item:hover .bento-item-link .card-content p {
+        opacity: 0;
+    }
+    
+    /* Card background hover effect */
+    .bento-item:hover .card-bg {
+        opacity: 0.5;
+        filter: blur(0);
+    }
 }
 
 /* ===== HOVER EFFECTS ===== */
@@ -498,17 +536,6 @@ a:hover::after {
 .bento-item-link .card-content h2,
 .bento-item-link .card-content p {
     transition: opacity 0.3s ease;
-}
-
-/* Show/hide content on hover */
-.bento-item:hover .bento-item-link .card-content h2,
-.bento-item:hover .bento-item-link .card-content p {
-    opacity: 0;
-}
-
-.bento-item:hover .bento-item-link .action-link {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Glitch effect */
@@ -541,12 +568,9 @@ a:hover::after {
     .bento-grid {
         height: auto;
     }
-
-    .avatar {
-        grid-area: avatar;
-      }
 }
 
+/* Mobile styles (no hover effects) */
 @media (max-width: 600px) {
     .bento-grid {
         display: flex;
@@ -565,5 +589,26 @@ a:hover::after {
     
     body {
         padding: 10px;
+    }
+    
+    /* Always show CTA on mobile */
+    .action-link {
+        opacity: 1;
+        transform: translateY(0);
+        align-self: flex-start;
+        margin-top: auto;
+        color: white;
+    }
+    
+    /* Always keep background blurred on mobile */
+    .card-bg {
+        filter: blur(5px);
+        opacity: 0.25;
+    }
+    
+    /* Always show title and description on mobile */
+    .bento-item-link .card-content h2,
+    .bento-item-link .card-content p {
+        opacity: 1 !important;
     }
 }
