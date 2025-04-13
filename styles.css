@@ -18,6 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: default;
 }
 
 html, body {
@@ -226,14 +227,15 @@ body::after {
 }
 
 .logo {
-    font-family: 'Space Mono', monospace; /* Different monospace font */
-    font-size: 5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 4rem; /* Reduced from 5rem */
     color: var(--text-color);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     animation: subtleFlicker 5s infinite;
     letter-spacing: 0.05em;
     font-weight: 300;
     text-transform: lowercase;
+    transform: translateY(-10px); /* Move up by 10px */
 }
 
 @keyframes subtleFlicker {
@@ -468,4 +470,30 @@ a:hover::after {
     body {
         padding: 10px;
     }
+}
+
+/* Add these styles to your styles.css file */
+
+/* SoundCloud container adjustments */
+.soundcloud-container {
+    padding-bottom: 0 !important; /* Override the padding for YouTube */
+    height: 166px !important; /* Fixed height for SoundCloud */
+    margin-top: 20px;
+}
+
+.soundcloud-info {
+    font-size: 12px;
+    color: #cccccc;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.soundcloud-info a {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+.soundcloud-info a:hover {
+    color: #ffffff;
 }
