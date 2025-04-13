@@ -452,6 +452,10 @@ a:hover::after {
     .bento-grid {
         height: auto;
     }
+
+    .avatar {
+        grid-area: avatar;
+    }
 }
 
 @media (max-width: 600px) {
