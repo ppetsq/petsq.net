@@ -1,17 +1,17 @@
 :root {
-    /* Core colors */
-    --bg-color: #111111;         /* Near-black background */
-    --text-color: #f2f2f2;       /* Very light gray text */
-    --accent-color: #F1AB86 ;     /* Bright mint/teal accent */
-    --secondary-color: #999999;  /* Medium gray for secondary elements */
+    /* More down-to-earth colors */
+    --bg-color: #0f0f0f;         /* Very dark gray, almost black */
+    --text-color: #d0d0d0;       /* Light gray text */
+    --accent-color: #a7a7a7;     /* Medium gray accent */
+    --secondary-color: #404040;  /* Darker gray for secondary elements */
     
     /* Card styles */
-    --card-bg: rgba(24, 24, 24, 0.8);        /* Slightly lighter black with transparency */
-    --card-hover: rgba(32, 32, 32, 0.9);     /* Highlighted card state */
+    --card-bg: rgba(25, 25, 25, 0.8);     /* Dark gray with transparency */
+    --card-hover: rgba(35, 35, 35, 0.9);  /* Slightly lighter when hovered */
     
     /* Layout values */
     --gap: 12px;
-    --border-radius: 16px;
+    --border-radius: 0px;        /* Keep square corners for TV/monitor look */
 }
 
 * {
@@ -34,6 +34,54 @@ body {
     padding: var(--gap);
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Film grain effect for the entire page */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    z-index: -1;
+    pointer-events: none;
+    animation: subtleNoise 0.2s infinite;
+}
+
+/* Subtle vignette effect */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes subtleNoise {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-1px, 1px); }
+    20% { transform: translate(1px, -1px); }
+    30% { transform: translate(-1px, -1px); }
+    40% { transform: translate(1px, 1px); }
+    50% { transform: translate(-1px, 0); }
+    60% { transform: translate(1px, 0); }
+    70% { transform: translate(0, 1px); }
+    80% { transform: translate(0, -1px); }
+    90% { transform: translate(-1px, 0); }
+    100% { transform: translate(0, 0); }
 }
 
 .container {
@@ -48,15 +96,15 @@ body {
 .bento-grid {
     display: grid;
     grid-template-areas: 
-        "avatar profile profile profile profile profile featured featured featured featured featured featured"
-        "avatar profile profile profile profile profile featured featured featured featured featured featured"
-        "offbeat offbeat offbeat releases releases releases featured featured featured featured featured featured"
-        "offbeat offbeat offbeat releases releases releases featured featured featured featured featured featured"
+        "avatar avatar avatar profile profile profile featured featured featured featured featured featured"
+        "avatar avatar avatar profile profile profile featured featured featured featured featured featured"
+        "avatar avatar avatar releases releases releases featured featured featured featured featured featured"
         "offbeat offbeat offbeat releases releases releases upcoming upcoming upcoming upcoming upcoming upcoming"
         "offbeat offbeat offbeat releases releases releases upcoming upcoming upcoming upcoming upcoming upcoming"
-        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social"
-        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social"
-        "djsets djsets djsets djsets remixes remixes remixes remixes social social social social";
+        "offbeat offbeat offbeat djsets djsets djsets upcoming upcoming upcoming upcoming upcoming upcoming"
+        "remixes remixes remixes djsets djsets djsets social social social social social social"
+        "remixes remixes remixes djsets djsets djsets social social social social social social"
+        "remixes remixes remixes djsets djsets djsets social social social social social social";
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(9, 1fr);
     gap: var(--gap);
@@ -67,23 +115,50 @@ body {
 .bento-item {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
+    border: 1px solid var(--secondary-color);
     padding: 20px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .bento-item:hover {
     background-color: var(--card-hover);
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Add subtle TV scanlines to all cards */
+.bento-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.01),
+        rgba(255, 255, 255, 0.01) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.5;
 }
 
 .bento-item h2 {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 10px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    text-transform: lowercase;
 }
 
 .bento-item p {
@@ -115,26 +190,125 @@ body {
 .upcoming-shows { grid-area: upcoming; }
 .social-media { grid-area: social; }
 
-/* Avatar/logo */
-.avatar {
+/* Much bigger square avatar with a more down-to-earth look */
+.avatar { 
+    grid-area: avatar;
+    grid-row: span 3; /* Make it span 3 rows to be much bigger */
+    grid-column: span 3; /* Make it span 3 columns to be much bigger */
+    position: relative;
+    padding: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    background-color: #1a1a1a; /* Dark gray background instead of image */
+    overflow: hidden;
+    border: 1px solid var(--secondary-color);
 }
 
-.avatar-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    object-fit: cover;
+.avatar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Subtle overlay */
+    z-index: 1;
+}
+
+/* Subtle scanline effect */
+.avatar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    z-index: 2;
+    opacity: 0.4;
+}
+
+.avatar .card-content {
+    z-index: 3;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .logo {
-    font-family: 'Geostar Fill', cursive;
-    font-size: 1.5rem;
+    font-family: 'Space Mono', monospace; /* Different monospace font */
+    font-size: 5rem;
+    color: var(--text-color);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: subtleFlicker 5s infinite;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+    text-transform: lowercase;
+}
+
+@keyframes subtleFlicker {
+    0% { opacity: 1; }
+    93% { opacity: 1; }
+    94% { opacity: 0.9; }
+    96% { opacity: 1; }
+    98% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+@keyframes subtleFlicker {
+    0% { opacity: 1; }
+    93% { opacity: 1; }
+    94% { opacity: 0.9; }
+    96% { opacity: 1; }
+    98% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+/* Subtle glitch effect for TV artifacts */
+.glitch {
+    animation: subtleGlitch 0.1s linear;
+}
+
+@keyframes subtleGlitch {
+    0% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-1px, 1px);
+        opacity: 0.95;
+    }
+    40% {
+        transform: translate(-1px, -1px);
+        opacity: 1;
+    }
+    60% {
+        transform: translate(1px, 1px);
+        opacity: 0.98;
+    }
+    80% {
+        transform: translate(1px, -1px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+
+/* Hide the avatar image as we're using background instead */
+.avatar-img {
+    display: none;
 }
 
 .profile-info {
@@ -145,12 +319,15 @@ body {
 
 .genre-tag {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--secondary-color);
     padding: 4px 8px;
-    border-radius: 50px;
+    border-radius: 0;
     font-size: 0.8rem;
     margin-right: 8px;
     margin-top: 8px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
 }
 
 /* Social media icons */
@@ -164,8 +341,9 @@ body {
 .social-icon {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--secondary-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,7 +351,7 @@ body {
 }
 
 .social-icon:hover {
-    background: var(--accent-color);
+    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-3px);
 }
 
@@ -183,9 +361,10 @@ body {
     height: 0;
     overflow: hidden;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 0;
     margin-top: auto;
     flex-grow: 1;
+    border: 1px solid var(--secondary-color);
 }
 
 .embed-container iframe {
@@ -195,7 +374,7 @@ body {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 12px;
+    filter: contrast(1.05) brightness(0.9);
 }
 
 .footer {
@@ -230,15 +409,36 @@ body {
     flex-direction: column;
 }
 
-/* Link styling */
+/* Link styling with subdued effect */
 a {
     color: var(--accent-color);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    position: relative;
+    padding: 0 2px;
 }
 
 a:hover {
-    text-decoration:
+    color: #ffffff;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    opacity: 0.5;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .action-link {
@@ -251,7 +451,7 @@ a:hover {
 @media (max-width: 1200px) {
     .bento-grid {
         grid-template-areas: 
-            "avatar avatar profile profile profile profile"
+            "avatar avatar avatar profile profile profile"
             "featured featured featured featured featured featured"
             "featured featured featured featured featured featured"
             "offbeat offbeat offbeat releases releases releases"
