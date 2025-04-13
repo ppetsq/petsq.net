@@ -24,17 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100 + (index * 70));
     });
     
-    // Handle YouTube embed click to play
-    const videoContainers = document.querySelectorAll('.embed-container');
-    videoContainers.forEach(container => {
-        container.addEventListener('click', function() {
-            const iframe = this.querySelector('iframe');
-            if (iframe && iframe.src.indexOf('autoplay=1') === -1) {
-                iframe.src += '&autoplay=1';
-            }
-        });
-    });
-    
     // Add occasional subtle glitches to simulate old TV
     setInterval(() => {
         if (Math.random() > 0.9) {

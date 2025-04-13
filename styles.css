@@ -305,7 +305,7 @@ body::after {
     border: 1px solid var(--secondary-color);
     padding: 4px 8px;
     border-radius: 0;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-right: 8px;
     margin-top: 8px;
     font-family: 'Space Mono', monospace;
@@ -321,8 +321,8 @@ body::after {
 }
 
 .social-icon {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
     border-radius: 0;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--secondary-color);
@@ -496,4 +496,15 @@ a:hover::after {
 
 .soundcloud-info a:hover {
     color: #ffffff;
+}
+
+.custom-icon {
+    filter: invert(40%); /* Makes dark icons light - adjust percentage as needed */
+    transition: filter 0.3s ease, transform 0.3s ease;
+    width: 28px;
+    height: 28px;
+}
+
+.social-icon:hover .custom-icon {
+    filter: invert(0%); /* Slightly brighter on hover */
 }
