@@ -10,7 +10,7 @@
     --card-hover: rgba(35, 35, 35, 0.9);  /* Slightly lighter when hovered */
     
     /* Layout values */
-    --gap: 12px;
+    --gap: 16px;
     --border-radius: 0px;        /* Keep square corners for TV/monitor look */
 }
 
@@ -357,14 +357,6 @@ body::after {
     filter: contrast(1.05) brightness(0.9);
 }
 
-.footer {
-    text-align: center;
-    padding: 10px 0;
-    opacity: 0.5;
-    font-size: 0.8rem;
-    font-weight: 300;
-}
-
 /* Card hover effects */
 .card-bg {
     position: absolute;
@@ -476,9 +468,5 @@ a:hover::after {
     
     body {
         padding: 10px;
-    }
-    
-    .footer {
-        margin-top: 10px;
     }
 }
