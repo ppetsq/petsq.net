@@ -1,19 +1,21 @@
+/* ===== VARIABLES ===== */
 :root {
-    /* More down-to-earth colors */
-    --bg-color: #0f0f0f;         /* Very dark gray, almost black */
-    --text-color: #d0d0d0;       /* Light gray text */
-    --accent-color: #a7a7a7;     /* Medium gray accent */
-    --secondary-color: #404040;  /* Darker gray for secondary elements */
+    /* Colors */
+    --bg-color: #0f0f0f;
+    --text-color: #d0d0d0;
+    --accent-color: #a7a7a7;
+    --secondary-color: #404040;
     
     /* Card styles */
-    --card-bg: rgba(25, 25, 25, 0.8);     /* Dark gray with transparency */
-    --card-hover: rgba(35, 35, 35, 0.9);  /* Slightly lighter when hovered */
+    --card-bg: rgba(25, 25, 25, 0.8);
+    --card-hover: rgba(35, 35, 35, 0.9);
     
-    /* Layout values */
+    /* Layout */
     --gap: 16px;
-    --border-radius: 0px;        /* Keep square corners for TV/monitor look */
+    --border-radius: 0px;
 }
 
+/* ===== RESET & BASE STYLES ===== */
 * {
     margin: 0;
     padding: 0;
@@ -39,7 +41,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Film grain effect for the entire page */
+/* Film grain effect */
 body::before {
     content: "";
     position: fixed;
@@ -54,7 +56,7 @@ body::before {
     animation: subtleNoise 0.2s infinite;
 }
 
-/* Subtle vignette effect */
+/* Vignette effect */
 body::after {
     content: "";
     position: fixed;
@@ -71,6 +73,7 @@ body::after {
     pointer-events: none;
 }
 
+/* ===== ANIMATIONS ===== */
 @keyframes subtleNoise {
     0% { transform: translate(0, 0); }
     10% { transform: translate(-1px, 1px); }
@@ -85,6 +88,43 @@ body::after {
     100% { transform: translate(0, 0); }
 }
 
+@keyframes subtleFlicker {
+    0% { opacity: 1; }
+    93% { opacity: 1; }
+    94% { opacity: 0.9; }
+    96% { opacity: 1; }
+    98% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
+
+@keyframes subtleGlitch {
+    0% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-1px, 1px);
+        opacity: 0.95;
+    }
+    40% {
+        transform: translate(-1px, -1px);
+        opacity: 1;
+    }
+    60% {
+        transform: translate(1px, 1px);
+        opacity: 0.98;
+    }
+    80% {
+        transform: translate(1px, -1px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+
+/* ===== LAYOUT ===== */
 .container {
     flex: 1;
     display: flex;
@@ -110,14 +150,26 @@ body::after {
     grid-template-rows: repeat(9, 1fr);
     gap: var(--gap);
     flex: 1;
-    height: calc(100vh - 40px); /* Account for footer and padding */
+    height: calc(100vh - 40px);
 }
 
+/* Define grid areas */
+.avatar { grid-area: avatar; }
+.profile-info { grid-area: profile; }
+.focus-song { grid-area: featured; }
+.offbeat { grid-area: offbeat; }
+.releases { grid-area: releases; }
+.dj-sets { grid-area: djsets; }
+.remixes { grid-area: remixes; }
+.upcoming-shows { grid-area: upcoming; }
+.social-media { grid-area: social; }
+
+/* ===== BENTO ITEM STYLES ===== */
 .bento-item {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
     border: 1px solid var(--secondary-color);
-    padding: 20px;
+    padding: 0; /* Removed padding from container */
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -148,40 +200,65 @@ body::after {
     margin-bottom: 10px;
 }
 
+/* Bento item links */
 .bento-item-link {
     color: var(--text-color);
     text-decoration: none;
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
 }
 
 .bento-item-link:hover {
     color: var(--accent-color);
 }
 
-/* Define grid areas for each bento box */
-.avatar { grid-area: avatar; }
-.profile-info { grid-area: profile; }
-.focus-song { grid-area: featured; }
-.offbeat { grid-area: offbeat; }
-.releases { grid-area: releases; }
-.dj-sets { grid-area: djsets; }
-.remixes { grid-area: remixes; }
-.upcoming-shows { grid-area: upcoming; }
-.social-media { grid-area: social; }
+/* Card content */
+.card-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px; /* Added padding to content instead */
+}
 
-/* Much bigger square avatar with a more down-to-earth look */
+.bento-item-link .card-content {
+    justify-content: space-between;
+}
+
+/* Card background */
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    filter: blur(5px);
+    transition: all 0.4s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.bento-item:hover .card-bg {
+    opacity: 0.5;
+    filter: blur(0);
+}
+
+/* ===== SPECIAL ELEMENTS ===== */
+/* Avatar/Logo */
 .avatar { 
-    grid-area: avatar;
-    grid-row: span 3; /* Make it span 3 rows to be much bigger */
-    grid-column: span 3; /* Make it span 3 columns to be much bigger */
+    grid-row: span 3;
+    grid-column: span 3;
     position: relative;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1a1a1a; /* Dark gray background instead of image */
+    background-color: #1a1a1a;
     overflow: hidden;
     border: 1px solid var(--secondary-color);
 }
@@ -193,11 +270,10 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2); /* Subtle overlay */
+    background: rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
-/* Subtle scanline effect */
 .avatar::after {
     content: '';
     position: absolute;
@@ -226,79 +302,30 @@ body::after {
     height: 100%;
 }
 
+.avatar-img {
+    display: none;
+}
+
 .logo {
     font-family: 'Space Mono', monospace;
-    font-size: 4rem; /* Reduced from 5rem */
+    font-size: 4rem;
     color: var(--text-color);
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     animation: subtleFlicker 5s infinite;
     letter-spacing: 0.05em;
     font-weight: 300;
     text-transform: lowercase;
-    transform: translateY(-10px); /* Move up by 10px */
+    transform: translateY(-10px);
 }
 
-@keyframes subtleFlicker {
-    0% { opacity: 1; }
-    93% { opacity: 1; }
-    94% { opacity: 0.9; }
-    96% { opacity: 1; }
-    98% { opacity: 0.9; }
-    100% { opacity: 1; }
-}
-
-@keyframes subtleFlicker {
-    0% { opacity: 1; }
-    93% { opacity: 1; }
-    94% { opacity: 0.9; }
-    96% { opacity: 1; }
-    98% { opacity: 0.9; }
-    100% { opacity: 1; }
-}
-
-/* Subtle glitch effect for TV artifacts */
-.glitch {
-    animation: subtleGlitch 0.1s linear;
-}
-
-@keyframes subtleGlitch {
-    0% {
-        transform: translate(0);
-        opacity: 1;
-    }
-    20% {
-        transform: translate(-1px, 1px);
-        opacity: 0.95;
-    }
-    40% {
-        transform: translate(-1px, -1px);
-        opacity: 1;
-    }
-    60% {
-        transform: translate(1px, 1px);
-        opacity: 0.98;
-    }
-    80% {
-        transform: translate(1px, -1px);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(0);
-        opacity: 1;
-    }
-}
-
-/* Hide the avatar image as we're using background instead */
-.avatar-img {
-    display: none;
-}
-
+/* Profile Info */
 .profile-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+/* Genre Tags */
 .genre-tag {
     display: inline-block;
     background: rgba(255, 255, 255, 0.07);
@@ -312,7 +339,7 @@ body::after {
     letter-spacing: 1px;
 }
 
-/* Social media icons */
+/* Social Icons */
 .social-icons {
     display: flex;
     gap: 12px;
@@ -336,6 +363,18 @@ body::after {
     background: rgba(255, 255, 255, 0.15);
 }
 
+.custom-icon {
+    filter: invert(40%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+    width: 28px;
+    height: 28px;
+}
+
+.social-icon:hover .custom-icon {
+    filter: invert(0%);
+}
+
+/* Embed Container */
 .embed-container {
     position: relative;
     padding-bottom: 56.25%;
@@ -358,31 +397,60 @@ body::after {
     filter: contrast(1.05) brightness(0.9);
 }
 
-/* Card hover effects */
-.card-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.2;
-    transition: opacity 0.3s ease;
+/* SoundCloud container */
+.soundcloud-container {
+    padding-bottom: 0 !important;
+    height: 166px !important;
+    margin-top: 20px;
 }
 
-.bento-item:hover .card-bg {
-    opacity: 0.3;
+.soundcloud-info {
+    font-size: 12px;
+    color: #cccccc;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
 }
 
-.card-content {
-    position: relative;
-    z-index: 2;
-    height: 100%;
+.soundcloud-info a {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+.soundcloud-info a:hover {
+    color: #ffffff;
+}
+
+/* Events List */
+.events-list {
+    margin-top: 15px;
+}
+
+.event-item {
     display: flex;
-    flex-direction: column;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Link styling with subdued effect */
+.event-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.event-date {
+    font-family: 'Space Mono', monospace;
+    min-width: 90px;
+    color: var(--accent-color);
+    font-size: 0.85rem;
+}
+
+.event-info {
+    font-size: 0.9rem;
+}
+
+/* ===== LINK STYLES ===== */
 a {
     color: var(--accent-color);
     text-decoration: none;
@@ -414,13 +482,41 @@ a:hover::after {
     transform-origin: left;
 }
 
+/* Action link */
 .action-link {
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateY(10px);
     margin-top: auto;
-    display: inline-block;
     font-weight: 500;
+    align-self: flex-start;
+    display: inline-block;
 }
 
-/* Responsive layout */
+/* ===== HOVER EFFECTS ===== */
+/* Content transition effects */
+.bento-item-link .card-content h2,
+.bento-item-link .card-content p {
+    transition: opacity 0.3s ease;
+}
+
+/* Show/hide content on hover */
+.bento-item:hover .bento-item-link .card-content h2,
+.bento-item:hover .bento-item-link .card-content p {
+    opacity: 0;
+}
+
+.bento-item:hover .bento-item-link .action-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Glitch effect */
+.glitch {
+    animation: subtleGlitch 0.1s linear;
+}
+
+/* ===== RESPONSIVE LAYOUT ===== */
 @media (max-width: 1200px) {
     .bento-grid {
         grid-template-areas: 
@@ -448,7 +544,7 @@ a:hover::after {
 
     .avatar {
         grid-area: avatar;
-    }
+      }
 }
 
 @media (max-width: 600px) {
@@ -470,71 +566,4 @@ a:hover::after {
     body {
         padding: 10px;
     }
-}
-
-/* Add these styles to your styles.css file */
-
-/* SoundCloud container adjustments */
-.soundcloud-container {
-    padding-bottom: 0 !important; /* Override the padding for YouTube */
-    height: 166px !important; /* Fixed height for SoundCloud */
-    margin-top: 20px;
-}
-
-.soundcloud-info {
-    font-size: 12px;
-    color: #cccccc;
-    margin-top: 8px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-}
-
-.soundcloud-info a {
-    color: #cccccc;
-    text-decoration: none;
-}
-
-.soundcloud-info a:hover {
-    color: #ffffff;
-}
-
-.custom-icon {
-    filter: invert(40%); /* Makes dark icons light - adjust percentage as needed */
-    transition: filter 0.3s ease, transform 0.3s ease;
-    width: 28px;
-    height: 28px;
-}
-
-.social-icon:hover .custom-icon {
-    filter: invert(0%); /* Slightly brighter on hover */
-}
-
-/* Add this to your styles.css file */
-
-.events-list {
-    margin-top: 15px;
-}
-
-.event-item {
-    display: flex;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.event-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.event-date {
-    font-family: 'Space Mono', monospace;
-    min-width: 90px;
-    color: var(--accent-color);
-    font-size: 0.85rem;
-}
-
-.event-info {
-    font-size: 0.9rem;
 }
