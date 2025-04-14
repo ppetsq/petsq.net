@@ -7,9 +7,10 @@
     --secondary-color: #404040;
     --card-bg: rgba(25, 25, 25, 0.8);
     --card-hover: rgba(35, 35, 35, 0.9);
-    --gap: 16px;
+    --gap: 20px;
     --border-radius: 0px;
     --cta-color: #ffffff;
+    --card-padding: 20px; /* Standardized card padding */
 }
 
 html {
@@ -18,7 +19,7 @@ html {
 }
 
 body {
-    background-color: transparent; /* Change from var(--bg-color) to transparent */
+    background-color: transparent;
     color: var(--text-color);
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
@@ -37,8 +38,8 @@ body {
     --accent-color: #505050;
     --secondary-color: #c0c0c0;
     --card-bg: rgba(230, 230, 230, 0.8);
-    --card-hover: rgba(220, 220, 220, 0.9);
-    --cta-color: #000000;
+    --card-hover: rgba(240, 240, 240, 0.9); /* Brighter on hover for light theme */
+    --cta-color: #606060; /* More gray CTA text for light theme */
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -253,14 +254,14 @@ body::after {
     color: var(--accent-color);
 }
 
-/* Card content */
+/* Card content - standardized padding for all cards */
 .card-content {
     position: relative;
     z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: var(--card-padding); /* Standardized padding */
 }
 
 .bento-item-link .card-content {
@@ -388,27 +389,27 @@ body::after {
 /* Simple theme toggle */
 .theme-toggle-slider {
     position: relative;
-    width: 38px; /* Reduced further */
-    height: 12px; /* Reduced further */
+    width: 38px;
+    height: 12px;
     margin-top: 0;
     background-color: var(--secondary-color);
     border: 1px solid var(--accent-color);
     cursor: pointer;
     z-index: 10;
-    box-sizing: border-box; /* Changed back to border-box */
+    box-sizing: border-box;
 }
 
 .theme-toggle-knob {
     position: absolute;
-    width: 18px; /* Half of container minus 1px buffer */
-    height: 10px; /* Match container height minus borders */
+    width: 18px;
+    height: 10px;
     background-color: var(--accent-color);
     left: 0;
-    top: 0; /* Ensure it's aligned properly */
+    top: 0;
     transition: left 0.3s ease;
     box-sizing: border-box;
     margin: 0;
-    border: none; /* Remove any borders */
+    border: none;
 }
 
 [data-theme="light"] .theme-toggle-knob {
@@ -433,6 +434,14 @@ body::after {
     justify-content: center;
 }
 
+/* Genre Tags Container - new container to help with responsiveness */
+.genre-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    max-width: 100%;
+}
+
 /* Genre Tags */
 .genre-tag {
     display: inline-block;
@@ -442,7 +451,7 @@ body::after {
     border-radius: 0;
     font-size: 0.7rem;
     margin-right: 8px;
-    margin-top: 8px;
+    margin-bottom: 8px; /* Added margin-bottom for wrap */
     font-family: 'Space Mono', monospace;
     letter-spacing: 1px;
 }
@@ -706,9 +715,9 @@ a:hover::after {
     
     /* Completely disable hover effects on mobile */
     .bento-item:hover {
-        background-color: var(--card-bg) !important; /* Force original background */
-        transform: none !important; /* Prevent translation */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important; /* Keep original shadow */
+        background-color: var(--card-bg) !important;
+        transform: none !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
     }
     
     /* Keep backgrounds blurred on mobile even when hovering */
