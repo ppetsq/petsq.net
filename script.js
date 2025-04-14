@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
+        // Force reflow and repaint by completely removing and re-adding the theme attribute
+        document.documentElement.removeAttribute('data-theme');
+        
+        // Force a browser reflow between removing and adding
+        void document.documentElement.offsetHeight;
+        
+        // Now set the new theme
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     }
