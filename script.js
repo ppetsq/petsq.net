@@ -38,6 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click event to avatar for toggling theme
     document.querySelector('.avatar').addEventListener('click', toggleTheme);
     
+    // Add spacebar event listener to toggle theme
+    document.addEventListener('keydown', function(event) {
+        // Check if the pressed key is the spacebar (key code 32)
+        if (event.keyCode === 32 || event.key === ' ') {
+            // Prevent default spacebar behavior (like scrolling)
+            event.preventDefault();
+            
+            // Toggle the theme
+            toggleTheme();
+        }
+    });
+    
     // Staggered fade-in effect (no glitching)
     const items = document.querySelectorAll('.bento-item');
     
