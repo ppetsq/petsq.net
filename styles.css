@@ -39,7 +39,7 @@ body {
     --secondary-color: #c0c0c0;
     --card-bg: rgba(230, 230, 230, 0.8);
     --card-hover: rgba(240, 240, 240, 0.9); /* Brighter on hover for light theme */
-    --cta-color: #606060; /* More gray CTA text for light theme */
+    --cta-color: #1D1D1D; /* More gray CTA text for light theme */
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -336,20 +336,20 @@ body::after {
     height: 100%;
     background: repeating-linear-gradient(
         0deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1) 1px,
+        rgba(0, 0, 0, 1),
+        rgba(0, 0, 0, 1) 1px,
         transparent 1px,
         transparent 2px
     );
     z-index: 2;
-    opacity: 0.4;
+    opacity: 0.8;
 }
 
 [data-theme="light"] .avatar::after {
     background: repeating-linear-gradient(
         0deg,
-        rgba(0, 0, 0, 0.05),
-        rgba(0, 0, 0, 0.05) 1px,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
         transparent 1px,
         transparent 2px
     );
@@ -478,6 +478,10 @@ body::after {
 
 .social-icon:hover {
     background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="light"] .social-icon:hover {
+    background: rgba(0, 0, 0, 0.15);
 }
 
 .custom-icon {
