@@ -416,17 +416,6 @@ body::after {
     left: 19px;
 }
 
-/* Add subtle pulse animation to help users notice the toggle */
-@keyframes pulse {
-    0% { opacity: 0.7; }
-    50% { opacity: 1; }
-    100% { opacity: 0.7; }
-}
-
-.theme-toggle-slider {
-    animation: pulse 2s infinite ease-in-out;
-}
-
 /* Profile Info */
 .profile-info {
     display: flex;
