@@ -1,18 +1,26 @@
 /* ===== VARIABLES ===== */
 :root {
-    /* Colors */
+    /* Dark Theme (Default) */
     --bg-color: #0f0f0f;
     --text-color: #d0d0d0;
     --accent-color: #a7a7a7;
     --secondary-color: #404040;
-    
-    /* Card styles */
     --card-bg: rgba(25, 25, 25, 0.8);
     --card-hover: rgba(35, 35, 35, 0.9);
-    
-    /* Layout */
     --gap: 16px;
     --border-radius: 0px;
+    --cta-color: #ffffff;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --bg-color: #f0f0f0;
+    --text-color: #202020;
+    --accent-color: #505050;
+    --secondary-color: #c0c0c0;
+    --card-bg: rgba(230, 230, 230, 0.8);
+    --card-hover: rgba(220, 220, 220, 0.9);
+    --cta-color: #000000;
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -39,6 +47,7 @@ body {
     flex-direction: column;
     position: relative;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Film grain effect */
@@ -56,6 +65,10 @@ body::before {
     animation: subtleNoise 0.2s infinite;
 }
 
+[data-theme="light"] body::before {
+    opacity: 0.04;
+}
+
 /* Vignette effect */
 body::after {
     content: "";
@@ -71,6 +84,14 @@ body::after {
     );
     z-index: -1;
     pointer-events: none;
+}
+
+[data-theme="light"] body::after {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
 }
 
 /* ===== ANIMATIONS ===== */
@@ -169,7 +190,7 @@ body::after {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
     border: 1px solid var(--secondary-color);
-    padding: 0; /* Removed padding from container */
+    padding: 0;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -221,7 +242,7 @@ body::after {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px; /* Added padding to content instead */
+    padding: 20px;
 }
 
 .bento-item-link .card-content {
@@ -233,8 +254,10 @@ body::after {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 110%; /* Zoomed in by 10% */
+    height: 110%; /* Zoomed in by 10% */
+    top: -5%; /* Center the zoomed image */
+    left: -5%; /* Center the zoomed image */
     object-fit: cover;
     opacity: 0.2;
     filter: blur(5px);
@@ -261,6 +284,13 @@ body::after {
     background-color: #1a1a1a;
     overflow: hidden;
     border: 1px solid var(--secondary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-direction: column;
+}
+
+[data-theme="light"] .avatar {
+    background-color: #e5e5e5;
 }
 
 .avatar::before {
@@ -272,6 +302,10 @@ body::after {
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
     z-index: 1;
+}
+
+[data-theme="light"] .avatar::before {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .avatar::after {
@@ -292,6 +326,16 @@ body::after {
     opacity: 0.4;
 }
 
+[data-theme="light"] .avatar::after {
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+}
+
 .avatar .card-content {
     z-index: 3;
     text-align: center;
@@ -300,6 +344,7 @@ body::after {
     justify-content: center;
     width: 100%;
     height: 100%;
+    flex-direction: column;
 }
 
 .avatar-img {
@@ -316,6 +361,51 @@ body::after {
     font-weight: 300;
     text-transform: lowercase;
     transform: translateY(-10px);
+}
+
+[data-theme="light"] .logo {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Simple theme toggle */
+.theme-toggle-slider {
+    position: relative;
+    width: 38px; /* Reduced further */
+    height: 12px; /* Reduced further */
+    margin-top: 0;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--accent-color);
+    cursor: pointer;
+    z-index: 10;
+    box-sizing: border-box; /* Changed back to border-box */
+}
+
+.theme-toggle-knob {
+    position: absolute;
+    width: 18px; /* Half of container minus 1px buffer */
+    height: 10px; /* Match container height minus borders */
+    background-color: var(--accent-color);
+    left: 0;
+    top: 0; /* Ensure it's aligned properly */
+    transition: left 0.3s ease;
+    box-sizing: border-box;
+    margin: 0;
+    border: none; /* Remove any borders */
+}
+
+[data-theme="light"] .theme-toggle-knob {
+    left: 19px;
+}
+
+/* Add subtle pulse animation to help users notice the toggle */
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.theme-toggle-slider {
+    animation: pulse 2s infinite ease-in-out;
 }
 
 /* Profile Info */
@@ -372,6 +462,15 @@ body::after {
 
 .social-icon:hover .custom-icon {
     filter: invert(0%);
+}
+
+/* Light mode icon adjustments */
+[data-theme="light"] .custom-icon {
+    filter: invert(60%);
+}
+
+[data-theme="light"] .social-icon:hover .custom-icon {
+    filter: invert(100%);
 }
 
 /* Embed Container */
@@ -460,7 +559,7 @@ a {
 }
 
 a:hover {
-    color: #ffffff;
+    color: var(--text-color);
 }
 
 a::after {
@@ -490,7 +589,7 @@ a:hover::after {
     font-weight: 500;
     font-size: 1rem;
     display: inline-block;
-    color: var(--text-color);
+    color: var(--cta-color);
 }
 
 /* Desktop hover effects */
@@ -502,7 +601,6 @@ a:hover::after {
         transform: translate(-50%, -50%) scale(0.9);
         opacity: 0;
         font-size: 1.2rem;
-        color: white;
         text-align: center;
         text-transform: lowercase;
         letter-spacing: 1px;
@@ -529,13 +627,6 @@ a:hover::after {
         opacity: 0.5;
         filter: blur(0);
     }
-}
-
-/* ===== HOVER EFFECTS ===== */
-/* Content transition effects */
-.bento-item-link .card-content h2,
-.bento-item-link .card-content p {
-    transition: opacity 0.3s ease;
 }
 
 /* Glitch effect */
@@ -571,11 +662,11 @@ a:hover::after {
 
     .avatar {
         grid-area: avatar;
-      }
+    }
 }
 
 /* Mobile styles (no hover effects) */
-@media (max-width: 600px) {
+@media (max-width: 600px), (hover: none) {
     .bento-grid {
         display: flex;
         flex-direction: column;
@@ -595,19 +686,27 @@ a:hover::after {
         padding: 18px;
     }
     
+    /* Completely disable hover effects on mobile */
+    .bento-item:hover {
+        background-color: var(--card-bg) !important; /* Force original background */
+        transform: none !important; /* Prevent translation */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important; /* Keep original shadow */
+    }
+    
+    /* Keep backgrounds blurred on mobile even when hovering */
+    .bento-item:hover .card-bg {
+        opacity: 0.2 !important;
+        filter: blur(5px) !important;
+    }
+    
     /* Always show CTA on mobile */
     .action-link {
         opacity: 1;
-        transform: translateY(0);
-        align-self: flex-start;
+        transform: none;
+        position: static;
         margin-top: auto;
-        color: white;
-    }
-    
-    /* Always keep background blurred on mobile */
-    .card-bg {
-        filter: blur(5px);
-        opacity: 0.25;
+        align-self: flex-start;
+        color: var(--cta-color);
     }
     
     /* Always show title and description on mobile */
@@ -615,36 +714,26 @@ a:hover::after {
     .bento-item-link .card-content p {
         opacity: 1 !important;
     }
-}
-
-/* Add these styles to your CSS file */
-
-/* Force mobile and touch devices to show everything without hover effects */
-@media (max-width: 600px), (hover: none) {
-    /* Keep titles and descriptions visible */
-    .bento-item:hover .bento-item-link .card-content h2,
-    .bento-item:hover .bento-item-link .card-content p {
-        opacity: 1 !important;
+    
+    /* Ensure links don't change on hover */
+    a:hover, .bento-item-link:hover {
+        color: var(--accent-color) !important;
     }
     
-    /* Always show action link */
-    .action-link {
-        opacity: 1;
-        transform: none;
-        position: static;
-        margin-top: auto;
-        align-self: flex-start;
-        color: white;
+    a:hover::after {
+        transform: scaleX(0) !important;
     }
     
-    /* Disable transform effects */
-    .bento-item:hover {
-        transform: none;
+    /* Prevent icon color changes on hover */
+    .social-icon:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
     }
     
-    /* Keep background blurred */
-    .bento-item:hover .card-bg {
-        filter: blur(5px);
-        opacity: 0.25;
+    .social-icon:hover .custom-icon {
+        filter: invert(40%) !important;
+    }
+    
+    [data-theme="light"] .social-icon:hover .custom-icon {
+        filter: invert(60%) !important;
     }
 }
