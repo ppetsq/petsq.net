@@ -757,3 +757,11 @@ a:hover::after {
         filter: invert(60%) !important;
     }
 }
+
+/* Booking button text */
+.book-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: lowercase;
+    letter-spacing: 0.5px;
+}

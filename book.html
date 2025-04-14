@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book petsq - DJ and electronic music producer</title>
+    <meta name="description" content="Book petsq for your event - Rotterdam-based DJ and producer.">
+    <link rel="icon" href="/assets/icons/favicon.ico">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Book petsq">
+    <meta property="og:description" content="Book petsq for your event - Rotterdam-based DJ and producer.">
+    <meta property="og:image" content="/assets/icons/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book petsq">
+    <meta name="twitter:description" content="Book petsq for your event - Rotterdam-based DJ and producer.">
+    <meta name="twitter:image" content="/assets/icons/og-image.jpg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES ===== */
+        :root {
+            /* Dark Theme (Default) */
+            --bg-color: #0f0f0f;
+            --text-color: #d0d0d0;
+            --accent-color: #a7a7a7;
+            --secondary-color: #404040;
+            --card-bg: rgba(25, 25, 25, 0.8);
+            --card-hover: rgba(35, 35, 35, 0.9);
+            --gap: 20px;
+            --border-radius: 0px;
+            --cta-color: #ffffff;
+            --card-padding: 20px;
+            --section-spacing: 50px;
+            --divider-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-color: #f0f0f0;
+            --text-color: #202020;
+            --accent-color: #505050;
+            --secondary-color: #c0c0c0;
+            --card-bg: rgba(230, 230, 230, 0.8);
+            --card-hover: rgba(240, 240, 240, 0.9);
+            --cta-color: #1D1D1D;
+            --divider-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            padding: var(--gap);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+            transition: color 0.3s ease;
+            margin: 0;
+        }
+
+        /* ===== EFFECTS ===== */
+        /* Film grain effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.08;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] body::before {
+            opacity: 0.04;
+        }
+
+        /* Vignette effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.4) 100%
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] body::after {
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(0, 0, 0, 0.2) 100%
+            );
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Document Header */
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            color: var(--text-color);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.05em;
+            font-weight: 300;
+            text-transform: lowercase;
+            margin-right: 20px;
+        }
+
+        .contact-info {
+            text-align: right;
+            font-size: 0.9rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Document Card */
+        .document-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--secondary-color);
+            padding: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content section */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        /* Section dividers */
+        .section-divider {
+            height: 1px;
+            background-color: var(--divider-color);
+            margin: var(--section-spacing) 0;
+            width: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--secondary-color);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            text-transform: lowercase;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-family: 'Space Mono', monospace;
+            color: var(--text-color);
+            text-transform: lowercase;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        /* ===== LINKS ===== */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 0 2px;
+        }
+
+        a:hover {
+            color: var(--text-color);
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+            opacity: 0.5;
+        }
+
+        a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* ===== COMPONENTS ===== */
+        /* Theme toggle */
+        .theme-toggle-slider {
+            position: relative;
+            width: 38px;
+            height: 12px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--accent-color);
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .theme-toggle-knob {
+            position: absolute;
+            width: 18px;
+            height: 10px;
+            background-color: var(--accent-color);
+            left: 0;
+            top: 0;
+            transition: left 0.3s ease;
+        }
+
+        [data-theme="light"] .theme-toggle-knob {
+            left: 19px;
+        }
+
+        .toggle-pressed {
+            transform: scale(0.9);
+            transition: transform 0.15s ease;
+            background-color: var(--text-color);
+        }
+
+        /* SoundCloud player */
+        .soundcloud-container {
+            margin: 20px 0;
+            height: 166px;
+            width: 100%;
+        }
+
+        .soundcloud-container iframe {
+            border: 1px solid var(--secondary-color);
+        }
+
+        .soundcloud-info {
+            font-size: 10px;
+            color: #cccccc;
+            line-break: anywhere;
+            word-break: normal;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+            font-weight: 100;
+            margin-top: 5px;
+        }
+
+        .soundcloud-info a {
+            color: #cccccc;
+            text-decoration: none;
+        }
+
+        .soundcloud-info a:hover {
+            color: #ffffff;
+        }
+
+        /* Offbeat highlight box */
+        .offbeat-highlight {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid #F3501C;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .offbeat-highlight:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .offbeat-highlight {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .offbeat-highlight:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .offbeat-highlight::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #F3501C;
+        }
+
+        .offbeat-highlight::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.2),
+                rgba(0, 0, 0, 0.2) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .offbeat-highlight::after {
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        .offbeat-highlight h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            text-transform: lowercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .offbeat-highlight p {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0;
+        }
+
+        /* Make entire box clickable */
+        .offbeat-box-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .document-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .contact-info {
+                text-align: left;
+                margin-top: 20px;
+            }
+
+            .document-card {
+                padding: 30px;
+            }
+            
+            :root {
+                --section-spacing: 40px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 10px;
+            }
+            
+            .document-card {
+                padding: 25px 20px;
+            }
+            
+            :root {
+                --section-spacing: 35px;
+            }
+            
+            h2 {
+                line-height: 1.3;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; back to home</a>
+        
+        <div class="document-header">
+            <div class="logo-container">
+                <div class="logo">petsq</div>
+                <div class="theme-toggle-slider">
+                    <div class="theme-toggle-knob"></div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                hello@petsq.net<br>
+                rotterdam, nl<br>
+                <a href="https://instagram.com/petsq010" target="_blank">@petsq010</a>
+            </div>
+        </div>
+        
+        <div class="document-card">
+            <section id="book" class="content-section">
+                <h2>book petsq for your event</h2>
+                <p>rotterdam-based dj and producer playing groovy and emotional electronic music. resident dj at radio worm, hosting <a href="https://offbeat.petsq.net" target="_blank">offbeat</a>, a biweekly live show featuring genre-blurring sets and occasional guests.</p>
+            </section>
+            
+            <div class="section-divider"></div>
+            
+            <section class="content-section">
+                <h3>available for:</h3>
+                <ul>
+                    <li>dj sets (clubs, listening bars, exhibition openings, open airs)</li>
+                    <li>guest mixes and radio appearances</li>
+                    <li>available across europe</li>
+                </ul>
+            </section>
+            
+            <div class="section-divider"></div>
+            
+            <section class="content-section">
+                <h3>experience:</h3>
+                <ul>
+                    <li>resident dj at radio worm (offbeat, live every other wednesday)</li>
+                    <li>producer and host at <a href="https://youtube.com/playlist?list=PL8cNUKJLYScKJUqZBc38BEskuODaslV9q&si=t4_qpVw3vvUVh_bO" target="_blank">radio het archief 03/2025</a></li>
+                    <li>producer and host at <a href="https://youtube.com/playlist?list=PL8cNUKJLYScIN6A_PqQeUDEgluCcy4M9j&si=nIYkbOA-f5HTQ5tE" target="_blank">radio brutus 07/2024</a></li>
+                    <li>organised and played club nights, curated lineups for various events and multimedia projects</li>
+                </ul>
+            </section>
+            
+            <div class="section-divider"></div>
+            
+            <section class="content-section">
+                <h3>listen</h3>
+                <div class="soundcloud-container">
+                    <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1803269052&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                </div>
+                <div class="soundcloud-info">
+                    <a href="https://soundcloud.com/petsq010" title="petsq" target="_blank">petsq</a> · <a href="https://soundcloud.com/petsq010/weddy" title="Weddy" target="_blank">Weddy</a>
+                </div>
+                
+                <div class="offbeat-highlight" onclick="window.open('https://offbeat.petsq.net', '_blank')">
+                    <h4>offbeat archive</h4>
+                    <p>up-to-date collection of live recordings from my residency at radio worm. browse and skim through the old episodes to get a feel for my sound.</p>
+                </div>
+            </section>
+            
+            <div class="section-divider"></div>
+
+            <section class="content-section">
+                <h3>gear</h3>
+                <p>i can bring a basic setup that works well for intimate venues, pop-ups, or art events.
+                for bigger spaces or proper club sound, gear rental is usually needed, but i'm happy to help figure out the right setup for your space. let's make it sound good.</p>
+            </section>
+            
+            <div class="section-divider"></div>
+            
+            <section class="content-section">
+                <h3>Rates</h3>
+                <p>from <b>€150</b> (+vat) per set<br>
+                flexible depending on the event and setup</p>
+            </section>
+            
+            <div class="section-divider"></div>
+            
+            <section class="content-section">
+                <h3>Contact</h3>
+                <p>email: <a href="mailto:hello@petsq.net">hello@petsq.net</a><br>
+                instagram: <a href="https://instagram.com/petsq010" target="_blank">@petsq010</a></p>
+            </section>
+        </div>
+        
+        <div class="footer">
+            &copy; 2025 petsq | <a href="/">petsq.net</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get theme from localStorage or default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            
+            // Set the initial theme
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Function to toggle theme
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                // Force reflow and repaint
+                document.documentElement.removeAttribute('data-theme');
+                void document.documentElement.offsetHeight;
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+            
+            // Add click event to logo for toggling theme
+            const toggleSlider = document.querySelector('.theme-toggle-slider');
+            if (toggleSlider) {
+                toggleSlider.addEventListener('click', toggleTheme);
+            }
+            
+            // Add spacebar event listener to toggle theme
+            document.addEventListener('keydown', function(event) {
+                // Check if the pressed key is the spacebar
+                if (event.keyCode === 32 || event.key === ' ') {
+                    // Prevent default spacebar behavior
+                    event.preventDefault();
+                    
+                    // Toggle the theme
+                    toggleTheme();
+                    
+                    // Add a visual feedback to the toggle knob
+                    const toggleKnob = document.querySelector('.theme-toggle-knob');
+                    if (toggleKnob) {
+                        toggleKnob.classList.add('toggle-pressed');
+                        
+                        // Remove the visual feedback class after animation completes
+                        setTimeout(() => {
+                            toggleKnob.classList.remove('toggle-pressed');
+                        }, 300);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
